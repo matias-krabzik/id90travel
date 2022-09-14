@@ -2,19 +2,10 @@
 
 namespace IdTravel\Challenge;
 
-use Philo\Blade\Blade;
+use Jenssegers\Blade\Blade;
 
 class Router
 {
-    protected Blade $blade;
-
-    public function __construct()
-    {
-        $views = dirname(__DIR__) . '/resources/views';
-        $cache = dirname(__DIR__) . '/storage/cache';
-        $this->blade = new Blade($views, $cache);
-    }
-
     private array $handlers;
 
     public $notFoundHandler;
@@ -22,16 +13,14 @@ class Router
     public const HTTP_GET = 'GET';
     public const HTTP_POST = 'POST';
 
+    public function view(string $path, string $view): void
+    {
+        $this->addHandler(self::HTTP_GET, $path, null, $view);
+    }
+
     public function get(string $path, $handler): void
     {
         $this->addHandler(self::HTTP_GET, $path, $handler);
-    }
-
-    public function getView(string $path, $view): void
-    {
-        $this->addHandler(self::HTTP_GET, $path, function () use ($view) {
-            echo $this->blade->view()->make($view)->render();
-        });
     }
 
     public function post(string $path, $handler): void
@@ -44,11 +33,12 @@ class Router
         $this->notFoundHandler = $handler;
     }
 
-    private function addHandler(string $method, string $path, $handler): void
+    private function addHandler(string $method, string $path, $handler = null, string $view = null): void
     {
         $this->handlers[$method . $path] = [
             'path' => $path,
             'method' => $method,
+            'view' => $view,
             'handler' => $handler
         ];
     }
@@ -59,15 +49,32 @@ class Router
         $requestPath = $requestUri['path'];
         $method = $_SERVER['REQUEST_METHOD'];
 
+        $view = null;
         $callback = null;
         foreach ($this->handlers as $handler) {
             if ($handler['path'] === $requestPath && $method === $handler['method']) {
                 $callback = $handler['handler'];
+                $view = $handler['view'];
+            }
+        }
+
+        if ($view) {
+            echo view($view);
+            return;
+        }
+
+        if (is_string($callback)) {
+            $callback = explode('@', $callback);
+            if (is_array($callback)) {
+                $class = array_shift($callback);
+                $handler = new $class();
+                $method = array_shift($callback);
+                $callback = [$handler, $method];
             }
         }
 
         if (!$callback) {
-            header("HTTP/1.0 404 Not Found");
+            header('HTTP/1.1 404 Not Found');
             if (!empty($this->notFoundHandler)) {
                 $callback = $this->notFoundHandler;
             }
