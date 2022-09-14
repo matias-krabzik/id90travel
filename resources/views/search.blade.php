@@ -45,7 +45,7 @@
     </div>
 
     <div class="mt-5">
-        @if($data["results"])
+        @if(isset($data["results"]))
             @if(count($data['results']) > 0)
                 <div class="card p-4">
                     @foreach($data['results'] as $hotel)
