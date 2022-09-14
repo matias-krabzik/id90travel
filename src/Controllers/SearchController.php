@@ -33,14 +33,12 @@ class SearchController
         if ($response->getStatusCode() === 200) {
             $data = json_decode($response->getBody()->getContents());
             $floor = floor($data->meta->total_pages / 2);
-            $floor = $floor > 4 ? $floor : -1;
             echo view('search', [
                 'member' => $_SESSION['session']->member,
                 'results' => $data->hotels,
                 'pagination' => [
                     'page' => $data->meta->page,
                     'total' => $data->meta->total_pages,
-                    'split' => $floor,
                     'url' => 'http://localhost:8881/search?' . http_build_query($params)
                 ],
                 'olds' => [
@@ -58,10 +56,10 @@ class SearchController
             'member' => $_SESSION['session']->member,
             'results' => [],
             'olds' => [
-                'destination' => $params['destination'],
-                'checkin' => $params['checkin'],
-                'checkout' => $params['checkout'],
-                'guests' => $params['guests'],
+                'destination' => $params['destination'] ?? '',
+                'checkin' => $params['checkin'] ?? '',
+                'checkout' => $params['checkout'] ?? '',
+                'guests' => $params['guests'] ?? '',
             ]
         ]);
     }

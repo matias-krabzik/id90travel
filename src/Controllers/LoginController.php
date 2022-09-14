@@ -17,7 +17,7 @@ class LoginController
         echo view('login', [ 'airlines' => $this->getAirlines()]);
     }
 
-    public function login($params)
+    public function login($params): void
     {
         $provider = new LoginProvider();
         $response = $provider->login(new LoginRepository(), $params);
@@ -40,15 +40,14 @@ class LoginController
         ]);
     }
 
-    public function logout()
+    public function logout(): void
     {
         session_start();
         unset($_SESSION['session']);
         header("Location: http://localhost:8881/login", TRUE, 301);
-        exit();
     }
 
-    private function getAirlines()
+    private function getAirlines(): array
     {
         $provider = new AirlinesProvider();
         return json_decode($provider->getAirlines(new AirlineRepository())->getBody()->getContents());

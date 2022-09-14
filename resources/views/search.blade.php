@@ -28,7 +28,7 @@
                 <div class="col-auto">
                     <label for="guests">Viajeros:</label>
                     <select class="form-select" aria-label="Select de Aerolíneas" id="guests" name="guests">
-                        @for($i = 1; $i <= 10; $i++)
+                        @for($i = 1; $i <= 4; $i++)
                             <option value="{{ $i }}"
                                     @if(old('guests', $data) == $i) selected @endif>
                                 {{ $i }}
@@ -45,7 +45,7 @@
     </div>
 
     <div class="mt-5">
-        @if(isset($data["results"]))
+        @if($data["results"])
             @if(count($data['results']) > 0)
                 <div class="card p-4">
                     @foreach($data['results'] as $hotel)

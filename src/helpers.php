@@ -34,7 +34,7 @@ if (! function_exists('paginationUrl')) {
     {
         $total = $pagination['total'];
         $page = min($page, $total);
-        $url = explode('page', $pagination['url'])[0];
-        return $url . 'page=' . $page;
+        $url = explode('&page', $pagination['url'])[0];
+        return $url . '&page=' . $page;
     }
 }

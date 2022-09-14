@@ -17,10 +17,10 @@ class HotelRepository
     {
         return $this->client->get('https://beta.id90travel.com/api/v1/hotels.json', [
             'query' => [
-                'guests[]' => $params['guests'],
-                'checkin' => $params['checkin'],
-                'checkout' => $params['checkout'],
-                'destination' => $params['destination'],
+                'guests[]' => $params['guests'] ?? '',
+                'checkin' => $params['checkin'] ?? '',
+                'checkout' => $params['checkout'] ?? '',
+                'destination' => $params['destination'] ?? '',
                 'keyword' => $params['keyword'] ?? '',
                 'rooms' => $params['rooms'] ?? 1,
                 'longitude' => $params['longitude'] ?? '',
