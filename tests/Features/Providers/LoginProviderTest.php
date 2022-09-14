@@ -9,7 +9,7 @@ class LoginProviderTest extends TestCase
     public function testLogin()
     {
         $provider = new \IdTravel\Challenge\Providers\LoginProvider();
-        $response = $provider->login(new \IdTravel\Challenge\Repositories\Auth\LoginRepository(), [
+        $response = $provider->login([
             'airline' => 'F9',
             'username' => 'f9user',
             'password' => '123456',
@@ -23,7 +23,7 @@ class LoginProviderTest extends TestCase
     public function testLoginWithInvalidCredentials()
     {
         $provider = new \IdTravel\Challenge\Providers\LoginProvider();
-        $response = $provider->login(new \IdTravel\Challenge\Repositories\Auth\LoginRepository(), [
+        $response = $provider->login([
             'airline' => 'F9',
             'username' => 'fake_user',
             'password' => '1234567_false',

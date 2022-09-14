@@ -7,6 +7,7 @@ use IdTravel\Challenge\Repositories\Hotel\HotelRepository;
 
 class SearchController
 {
+    private HotelProvider $hotelProvider;
 
     public function __construct()
     {
@@ -15,13 +16,13 @@ class SearchController
             header("Location: http://localhost:8881/login", TRUE, 301);
             exit();
         }
+        $this->hotelProvider = new HotelProvider();
     }
 
     public function search(): void
     {
         $params = array_merge($_GET);
-        $provider = new HotelProvider();
-        $response = $provider->search(new HotelRepository(), $params);
+        $response = $this->hotelProvider->search($params);
 
         if ($response->getStatusCode() === 200) {
             $content = json_decode($response->getBody()->getContents());

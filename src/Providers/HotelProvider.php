@@ -6,8 +6,8 @@ use IdTravel\Challenge\Repositories\Hotel\HotelRepository;
 
 class HotelProvider
 {
-    public function search(HotelRepository $repository, $params)
+    public function search($params): \Psr\Http\Message\ResponseInterface
     {
-        return $repository->getHotels($params);
+        return (new HotelRepository())->getHotels($params);
     }
 }

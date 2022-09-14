@@ -3,6 +3,7 @@
 namespace IdTravel\Challenge\Repositories\Hotel;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class HotelRepository
 {
@@ -13,7 +14,10 @@ class HotelRepository
         $this->client = new Client(['http_errors' => false]);
     }
 
-    public function getHotels($params)
+    /**
+     * @throws GuzzleException
+     */
+    public function getHotels($params): \Psr\Http\Message\ResponseInterface
     {
         return $this->client->get('https://beta.id90travel.com/api/v1/hotels.json', [
             'query' => [

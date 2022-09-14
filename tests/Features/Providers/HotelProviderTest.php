@@ -9,7 +9,7 @@ class HotelProviderTest extends TestCase
     public function testSearch()
     {
         $provider = new \IdTravel\Challenge\Providers\HotelProvider();
-        $response = $provider->search(new \IdTravel\Challenge\Repositories\Hotel\HotelRepository(), [
+        $response = $provider->search([
             'destination' => 'Lima',
             'checkin' => '2020-01-01',
             'checkout' => '2020-01-02',

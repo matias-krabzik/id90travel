@@ -11,6 +11,14 @@ use IdTravel\Challenge\Repositories\Auth\LoginRepository;
 
 class LoginController
 {
+    private LoginProvider $loginProvider;
+    private AirlinesProvider $airlinesProvider;
+
+    public function __construct()
+    {
+        $this->loginProvider = new LoginProvider();
+        $this->airlinesProvider = new AirlinesProvider();
+    }
 
     public function loginView(): void
     {
@@ -19,8 +27,7 @@ class LoginController
 
     public function login($params): void
     {
-        $provider = new LoginProvider();
-        $response = $provider->login(new LoginRepository(), $params);
+        $response = $this->loginProvider->login($params);
 
         if ($response->getStatusCode() === 200) {
             session_start();
@@ -49,7 +56,7 @@ class LoginController
 
     private function getAirlines(): array
     {
-        $provider = new AirlinesProvider();
-        return json_decode($provider->getAirlines(new AirlineRepository())->getBody()->getContents());
+
+        return json_decode($this->airlinesProvider->getAirlines()->getBody()->getContents());
     }
 }

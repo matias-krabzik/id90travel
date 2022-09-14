@@ -7,11 +7,17 @@ use IdTravel\Challenge\Repositories\Airline\AirlineRepository;
 
 class AirlinesController
 {
+    private AirlinesProvider $airlinesProvider;
+
+    public function __construct()
+    {
+        $this->airlinesProvider = new AirlinesProvider();
+    }
 
     public function getAirlines(): void
     {
-        $provider = new AirlinesProvider();
-        $response = $provider->getAirlines(new AirlineRepository());
+
+        $response = $this->airlinesProvider->getAirlines();
         if ($response->getStatusCode() === 200) {
             header('Content-Type: application/json; charset=utf-8');
             echo $response->getBody()->getContents();

@@ -6,8 +6,8 @@ use IdTravel\Challenge\Repositories\Auth\LoginRepository;
 
 class LoginProvider
 {
-    public function login(LoginRepository $repository, $params)
+    public function login($params): \Psr\Http\Message\ResponseInterface
     {
-        return $repository->login($params);
+        return (new LoginRepository())->login($params);
     }
 }

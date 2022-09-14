@@ -9,8 +9,8 @@ use IdTravel\Challenge\Repositories\Airline\AirlineRepository;
  */
 class AirlinesProvider
 {
-    public function getAirlines(AirlineRepository $provider)
+    public function getAirlines(): \Psr\Http\Message\ResponseInterface
     {
-        return $provider->getAirlines();
+        return (new AirlineRepository())->getAirlines();
     }
 }
