@@ -1,6 +1,6 @@
 <?php
 
-namespace IdTravel\Challenge\Repositories\Hotel;
+namespace IdTravel\Challenge\Repositories\Network\Hotel;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;

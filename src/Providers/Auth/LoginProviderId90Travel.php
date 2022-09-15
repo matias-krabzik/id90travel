@@ -4,7 +4,7 @@ namespace IdTravel\Challenge\Providers\Auth;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use IdTravel\Challenge\Repositories\Auth\LoginRepository;
+use IdTravel\Challenge\Repositories\Network\Auth\LoginRepository;
 
 class LoginProviderId90Travel implements LoginProviderInterface
 {

@@ -3,7 +3,7 @@
 namespace IdTravel\Challenge\Providers\Hotels;
 
 use GuzzleHttp\Exception\GuzzleException;
-use IdTravel\Challenge\Repositories\Hotel\HotelRepository;
+use IdTravel\Challenge\Repositories\Network\Hotel\HotelRepository;
 
 class HotelProviderId90Travel implements HotelProviderInterface
 {

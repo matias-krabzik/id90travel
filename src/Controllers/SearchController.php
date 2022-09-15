@@ -41,15 +41,35 @@ class SearchController
             ];
             echo view('search', $data);
         } catch (GuzzleException $e) {
-            echo view('search', [
-                'error' => $e->getMessage(),
+            $data = [
+                'error' => 'Error interno. Intente mas tarde.',
                 'member' => $_SESSION['session']->member,
-            ]);
+                'olds' => [
+                    'destination' => $params['destination'] ?? '',
+                    'checkin' => $params['checkin'] ?? '',
+                    'checkout' => $params['checkout'] ?? '',
+                    'guests' => $params['guests'] ?? '',
+                ]
+            ];
+            if (count($params) > 0) {
+                $data['results'] = [];
+            }
+            echo view('search', $data);
         } catch (\Exception $e) {
-            echo view('search', [
+            $data = [
                 'error' => $e->getMessage(),
                 'member' => $_SESSION['session']->member,
-            ]);
+                'olds' => [
+                    'destination' => $params['destination'] ?? '',
+                    'checkin' => $params['checkin'] ?? '',
+                    'checkout' => $params['checkout'] ?? '',
+                    'guests' => $params['guests'] ?? '',
+                ]
+            ];
+            if (count($params) > 0) {
+                $data['results'] = [];
+            }
+            echo view('search', $data);
         }
 
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace IdTravel\Challenge\Repositories\Auth;
+namespace IdTravel\Challenge\Repositories\Network\Auth;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;

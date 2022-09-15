@@ -2,7 +2,7 @@
 
 namespace IdTravel\Challenge\Providers\Airlines;
 
-use IdTravel\Challenge\Repositories\Airline\AirlineRepository;
+use IdTravel\Challenge\Repositories\Network\Airline\AirlineRepository;
 
 /**
  * Esta clase es un proveedor de servicio para las aerolineas.

@@ -1,6 +1,6 @@
 <?php
 
-namespace IdTravel\Challenge\Repositories\Airline;
+namespace IdTravel\Challenge\Repositories\Network\Airline;
 
 use GuzzleHttp\Client;
 
