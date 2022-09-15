@@ -1,6 +1,7 @@
 /vendor/
 # Agregamos el ignore para los archivos de mac.
 *.DS_Store
-
+/.idea
+/.vscode
 /.phpunit.result.cache
 /resources/cache
