@@ -26,7 +26,6 @@ class LoginController
     {
         try {
             $session = $this->loginProvider->login($params);
-            session_start();
             $_SESSION['session'] = $session;
             header("Location: http://localhost:8881/search", TRUE, 301);
         } catch (GuzzleException $e) {
@@ -54,7 +53,6 @@ class LoginController
 
     public function logout(): void
     {
-        session_start();
         unset($_SESSION['session']);
         header("Location: http://localhost:8881/login", TRUE, 301);
     }

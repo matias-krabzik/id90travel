@@ -19,28 +19,38 @@ class SearchController
         $this->hotelProvider = new HotelProviderId90Travel();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function search(): void
     {
-        $params = array_merge($_GET);
-        $content = $this->hotelProvider->search($params);
-        $data = [
-            'member' => $_SESSION['session']->member,
-            'results' => $content['hotels'],
-            'pagination' => [
-                'page' => $content['meta']['page'],
-                'total' => $content['meta']['total_pages'],
-                'url' => 'http://localhost:8881/search?' . http_build_query($params)
-            ],
-            'olds' => [
-                'destination' => $params['destination'] ?? '',
-                'checkin' => $params['checkin'] ?? '',
-                'checkout' => $params['checkout'] ?? '',
-                'guests' => $params['guests'] ?? '',
-            ]
+        try {
+            $params = array_merge($_GET);
+            $content = $this->hotelProvider->search($params);
+            $data = [
+                'member' => $_SESSION['session']->member,
+                'results' => $content['hotels'],
+                'pagination' => [
+                    'page' => $content['meta']['page'],
+                    'total' => $content['meta']['total_pages'],
+                    'url' => 'http://localhost:8881/search?' . http_build_query($params)
+                ],
+                'olds' => [
+                    'destination' => $params['destination'] ?? '',
+                    'checkin' => $params['checkin'] ?? '',
+                    'checkout' => $params['checkout'] ?? '',
+                    'guests' => $params['guests'] ?? '',
+                ]
             ];
-        echo view('search', $data);
+            echo view('search', $data);
+        } catch (GuzzleException $e) {
+            echo view('search', [
+                'error' => $e->getMessage(),
+                'member' => $_SESSION['session']->member,
+            ]);
+        } catch (\Exception $e) {
+            echo view('search', [
+                'error' => $e->getMessage(),
+                'member' => $_SESSION['session']->member,
+            ]);
+        }
+
     }
 }
