@@ -2,12 +2,8 @@
 
 namespace IdTravel\Challenge\Controllers;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use IdTravel\Challenge\Providers\AirlinesProvider;
+use IdTravel\Challenge\Providers\Airlines\AirlinesProvider;
 use IdTravel\Challenge\Providers\LoginProvider;
-use IdTravel\Challenge\Repositories\Airline\AirlineRepository;
-use IdTravel\Challenge\Repositories\Auth\LoginRepository;
 
 class LoginController
 {
@@ -57,6 +53,6 @@ class LoginController
     private function getAirlines(): array
     {
 
-        return json_decode($this->airlinesProvider->getAirlines()->getBody()->getContents());
+        return $this->airlinesProvider->getAirlines();
     }
 }

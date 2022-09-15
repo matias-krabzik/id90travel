@@ -4,7 +4,6 @@
 use IdTravel\Challenge\Router;
 use IdTravel\Challenge\Controllers\LoginController;
 use IdTravel\Challenge\Controllers\SearchController;
-use IdTravel\Challenge\Controllers\AirlinesController;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -14,8 +13,6 @@ $router->get('/', function () {
     header("Location: http://localhost:8881/search", TRUE, 301);
     exit();
 });
-
-$router->get('/airlines', AirlinesController::class . '@getAirlines');
 
 $router->get('/login', LoginController::class . '@loginView');
 $router->post('/login', LoginController::class . '@login');

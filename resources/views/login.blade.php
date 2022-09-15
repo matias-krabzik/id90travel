@@ -47,9 +47,9 @@
                 <select class="form-select" aria-label="Select de Aerolíneas" name="airline">
                     <option @if(is_null(old('airline', $data))) selected @endif>Seleccione una Aerolínea</option>
                     @foreach($data['airlines'] as $airline)
-                        <option value="{{ $airline->code }}"
-                                @if(old('airline', $data) == $airline->code) selected @endif>
-                            {{ $airline->display_name }}
+                        <option value="{{ $airline['code'] }}"
+                                @if(old('airline', $data) == $airline['code']) selected @endif>
+                            {{ $airline['display_name'] }}
                         </option>
                     @endforeach
                 </select>
