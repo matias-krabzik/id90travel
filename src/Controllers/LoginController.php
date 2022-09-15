@@ -2,18 +2,19 @@
 
 namespace IdTravel\Challenge\Controllers;
 
-use IdTravel\Challenge\Providers\Airlines\AirlinesProvider;
-use IdTravel\Challenge\Providers\LoginProvider;
+use GuzzleHttp\Exception\GuzzleException;
+use IdTravel\Challenge\Providers\Airlines\AirlinesProviderId90Travel;
+use IdTravel\Challenge\Providers\Auth\LoginProviderId90Travel;
 
 class LoginController
 {
-    private LoginProvider $loginProvider;
-    private AirlinesProvider $airlinesProvider;
+    private LoginProviderId90Travel $loginProvider;
+    private AirlinesProviderId90Travel $airlinesProvider;
 
     public function __construct()
     {
-        $this->loginProvider = new LoginProvider();
-        $this->airlinesProvider = new AirlinesProvider();
+        $this->loginProvider = new LoginProviderId90Travel();
+        $this->airlinesProvider = new AirlinesProviderId90Travel();
     }
 
     public function loginView(): void
@@ -23,24 +24,32 @@ class LoginController
 
     public function login($params): void
     {
-        $response = $this->loginProvider->login($params);
-
-        if ($response->getStatusCode() === 200) {
+        try {
+            $session = $this->loginProvider->login($params);
             session_start();
-            $_SESSION['session'] = json_decode($response->getBody()->getContents());
+            $_SESSION['session'] = $session;
             header("Location: http://localhost:8881/search", TRUE, 301);
-            exit();
+        } catch (GuzzleException $e) {
+            echo view('login', [
+                'error' => 'Error interno. Intente mas tarde.',
+                'airlines' => $this->getAirlines() ,
+                'olds' => [
+                    'airline' => $params['airline'],
+                    'username' => $params['username'],
+                    'remember_me' => $params['remember_me'] ?? false,
+                ]
+            ]);
+        } catch (\Exception $e) {
+            echo view('login', [
+                'error' => $e->getMessage(),
+                'airlines' => $this->getAirlines() ,
+                'olds' => [
+                    'airline' => $params['airline'],
+                    'username' => $params['username'],
+                    'remember_me' => $params['remember_me'] ?? false,
+                ]
+            ]);
         }
-
-        echo view('login', [
-            'error' => 'Invalid credentials',
-            'airlines' => $this->getAirlines() ,
-            'olds' => [
-                'airline' => $params['airline'],
-                'username' => $params['username'],
-                'remember_me' => $params['remember_me'] ?? false,
-            ]
-        ]);
     }
 
     public function logout(): void
@@ -52,7 +61,6 @@ class LoginController
 
     private function getAirlines(): array
     {
-
         return $this->airlinesProvider->getAirlines();
     }
 }

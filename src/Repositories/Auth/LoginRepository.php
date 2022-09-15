@@ -3,6 +3,7 @@
 namespace IdTravel\Challenge\Repositories\Auth;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class LoginRepository
 {
@@ -14,7 +15,10 @@ class LoginRepository
         $this->client = new Client(['http_errors' => false]);
     }
 
-    public function login($params)
+    /**
+     * @throws GuzzleException
+     */
+    public function login($params): \Psr\Http\Message\ResponseInterface
     {
         return $this->client->post('https://beta.id90travel.com/session.json', [
             'headers' => [

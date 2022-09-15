@@ -52,12 +52,12 @@
                         <div class="">
                             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                                 <div class="col-auto d-none d-lg-block" style="height: 15rem">
-                                    <img src="https:{{ $hotel->image }}" style="width: auto; height: 100%" alt="{{ $hotel->name }}">
+                                    <img src="https:{{ $hotel['image'] }}" style="width: auto; height: 100%" alt="{{ $hotel['name'] }}">
                                 </div>
                                 <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-primary">{{ $hotel->location->description }}</strong>
-                                    <h3 class="mb-0">{{ $hotel->name }}</h3>
-                                    <div class="mb-1 text-muted">{{ $hotel->location->city }}</div>
+                                    <strong class="d-inline-block mb-2 text-primary">{{ $hotel['location']['description'] }}</strong>
+                                    <h3 class="mb-0">{{ $hotel['name'] }}</h3>
+                                    <div class="mb-1 text-muted">{{ $hotel['location']['city'] }}</div>
                                 </div>
                             </div>
                         </div>

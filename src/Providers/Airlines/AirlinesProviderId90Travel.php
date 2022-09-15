@@ -7,7 +7,7 @@ use IdTravel\Challenge\Repositories\Airline\AirlineRepository;
 /**
  * Esta clase es un proveedor de servicio para las aerolineas.
  */
-class AirlinesProvider implements AirlineProviderInterface
+class AirlinesProviderId90Travel implements AirlineProviderInterface
 {
     public function getAirlines(): array
     {
